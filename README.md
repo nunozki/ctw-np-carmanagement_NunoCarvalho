@@ -4,6 +4,8 @@
 
 This repository contains the starting point for the Car Management application development. In order to start working create a fork of this repository and all code changes should be made on that fork.
 
+https://app.milanote.com/1SUyOA1LKbCc7N/car-management-tool-11
+
 ## Local machine requirements
 
 To run the project you only need to have the following installed in your machine:
