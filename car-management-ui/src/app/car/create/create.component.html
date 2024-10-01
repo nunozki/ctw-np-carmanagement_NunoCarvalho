@@ -8,13 +8,13 @@
   <input formControlName="brand" type="text">
   <br>
   <div>
-  <label>Engine Type:</label>
-  <select formControlName="engineType">
-    <option *ngFor="let engineType of engineTypes" [value]="engineType.value">
-      {{ engineType.label }}
-    </option>
-  </select>
-</div>
+    <label>Engine Type:</label>
+    <select formControlName="engineType">
+      <option *ngFor="let engineType of engineTypes" [value]="engineType.value">
+        {{ engineType.label }}
+      </option>
+    </select>
+  </div>
   <br>
-  <button type="submit">Add New Car</button>
+  <button type="submit" (click)="submitNewCar()">Add New Car</button>
 </form>

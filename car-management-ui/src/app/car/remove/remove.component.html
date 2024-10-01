@@ -1,0 +1,4 @@
+<div *ngFor="let car of cars as Car">
+  <p>{{ car.model }} ({{ car.brand }})</p>
+  <button (click)="removeCar(car.id)">Remove</button>
+</div>

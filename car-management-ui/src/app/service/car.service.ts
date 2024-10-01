@@ -34,12 +34,15 @@ export class CarService {
       catchError(this.errorHandler)
     )
   }
-
   addCar(car: Car): Observable<any> {
     return this.httpClient.post(this.apiURL + '/car', car, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       );
+  }
+
+  removeCar(carId: string): Observable<any> {
+    return this.httpClient.delete(`${this.apiURL + '/car'}/${carId}`);
   }
 
   /**

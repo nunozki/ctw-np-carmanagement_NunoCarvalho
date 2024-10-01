@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -17,7 +17,7 @@ export class IndexComponent {
   cars: Car[] = []
 
   constructor(public carService: CarService) { }
-      
+
   /**
    * Write code on Method
    *
@@ -26,8 +26,18 @@ export class IndexComponent {
   ngOnInit(): void {
     this.carService.getAll().subscribe((data: Car[])=>{
       this.cars = data;
-    })  
+    })
   }
 
-  
+
+  removeCar(carId: string): void {
+    this.carService.removeCar(carId).subscribe(
+      () => {
+        this.cars = this.cars.filter(car => car.id !== carId);
+      },
+      error => {
+        console.error('Error removing car:', error.message);
+      }
+    );
+  }
 }

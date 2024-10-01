@@ -1,15 +1,21 @@
 package com.ctw.car.boundary;
 
+import java.util.List;
+
 import com.ctw.car.control.CarService;
 import com.ctw.car.entity.Car;
 import com.ctw.car.entity.Routes;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import java.util.List;
 
 @Path(Routes.CAR)
 @ApplicationScoped
@@ -30,5 +36,12 @@ public class CarResource {
     ) {
         List<Car> cars = this.carService.getCars();
         return Response.status(200).entity(cars).build();
+    }
+
+    @POST
+    @Path("/")
+    public Response addCar(Car car) {
+        Car addedCar = this.carService.addCar(car);
+        return Response.status(201).entity(addedCar).build();
     }
 }
