@@ -1,5 +1,6 @@
 package com.ctw.car.entity;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Car {
@@ -50,5 +51,31 @@ public class Car {
 
     public void setEngineType(EngineType engineType) {
         this.engineType = engineType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return Objects.equals(id, car.id) &&
+                Objects.equals(model, car.model) &&
+                Objects.equals(brand, car.brand) &&
+                engineType == car.engineType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, model, brand, engineType);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", brand='" + brand + '\'' +
+                ", engineType=" + engineType +
+                '}';
     }
 }

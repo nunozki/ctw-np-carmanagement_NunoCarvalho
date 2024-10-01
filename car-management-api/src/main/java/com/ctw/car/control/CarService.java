@@ -1,12 +1,11 @@
 package com.ctw.car.control;
 
+import java.util.List;
+
 import com.ctw.car.entity.Car;
-import com.ctw.car.entity.EngineType;
+
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
-
-import java.util.List;
-import java.util.UUID;
 
 @Dependent
 public class CarService {
@@ -19,5 +18,8 @@ public class CarService {
 
     public List<Car> getCars() {
         return carRepository.fetchAllCars();
+    }
+    public Car addCar(Car car) {
+        return carRepository.setCar(car);
     }
 }

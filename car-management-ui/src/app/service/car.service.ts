@@ -27,15 +27,22 @@ export class CarService {
    * @return response()
    */
   getAll(): Observable<any> {
-  
+
     return this.httpClient.get(this.apiURL + '/car')
-  
+
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
-  /** 
+  addCar(car: Car): Observable<any> {
+    return this.httpClient.post(this.apiURL + '/car', car, this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
+
+  /**
    * Write code on Method
    *
    * @return response()
