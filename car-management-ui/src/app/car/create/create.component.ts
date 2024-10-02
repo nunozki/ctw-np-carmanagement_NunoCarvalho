@@ -3,8 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { CarService } from '../../service/car.service'; // Import the CarService
 import { EngineType } from '../enginetype/engine-type.enum';
-import { Car } from '../../model/car';
+import { Car, CarImpl } from '../../model/car';
 import { Router } from '@angular/router';
+
+// Now you can use the CarImpl class
+let myCar: Car = new CarImpl();
 
 @Component({
   selector: 'app-create',
@@ -22,8 +25,7 @@ export class CreateComponent implements OnInit {
     { value: EngineType.GASOLINE, label: 'ICE/Gasoline' },
     { value: EngineType.DIESEL, label: 'ICE/Diesel' }
   ];
-  cars: Car[] = []; // Declare the cars property
-  car?: Car;
+  car: Car = new CarImpl();
 
   constructor(private carService: CarService, private router: Router) { // Injected CarService
     console.log(this.engineTypes);
@@ -37,27 +39,9 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submitNewCar(): void {
-    if (this.newCarForm.valid) { // Check if the form is valid
-      const newCar = this.newCarForm.value;
-      this.carService.addCar(newCar).subscribe(
-        (response) => {
-          // Handle the response from the API (e.g. display a success message)
-          console.log(response);
-          this.cars.push(response); // Add the new car to the cars array
-          this.newCarForm.reset(); // Reset the form after submission
-
-          // Navigate to the main menu
-          this.router.navigate(['/index.component']);
-        },
-        (error) => {
-          // Handle the error (e.g. display an error message)
-          console.error(error);
-        }
-      );
-    } else {
-      // Handle the case when the form is invalid
-      console.error('Form is invalid');
-    }
+  submitNewCar() {
+    this.carService.addCar(this.car).subscribe(() => {
+      this.car = new CarImpl();
+    });
   }
 }

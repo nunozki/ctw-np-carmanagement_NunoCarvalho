@@ -24,20 +24,14 @@ export class IndexComponent {
    * @return response()
    */
   ngOnInit(): void {
-    this.carService.getAll().subscribe((data: Car[])=>{
+    this.carService.getAll().subscribe((data: any) => {
       this.cars = data;
-    })
+    });
   }
 
-
-  removeCar(carId: string): void {
-    this.carService.removeCar(carId).subscribe(
-      () => {
-        this.cars = this.cars.filter(car => car.id !== carId);
-      },
-      error => {
-        console.error('Error removing car:', error.message);
-      }
-    );
+  removeCar(carId: string) {
+    this.carService.removeCar(carId).subscribe(() => {
+      this.cars = this.cars.filter(car => car.id !== carId);
+    });
   }
 }
