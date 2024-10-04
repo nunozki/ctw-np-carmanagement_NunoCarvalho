@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { CarService } from '../../service/car.service'; // Import the CarService
 import { EngineType } from '../enginetype/engine-type.enum';
@@ -27,7 +28,7 @@ export class CreateComponent implements OnInit {
   ];
   car: Car = new CarImpl();
 
-  constructor(private carService: CarService, private router: Router) { // Injected CarService
+  constructor(private carService: CarService, private router: Router, private http: HttpClient) { // Injected CarService
     console.log(this.engineTypes);
     this.newCarForm = new FormGroup({
       model: new FormControl('', Validators.required),
@@ -38,10 +39,13 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
   submitNewCar() {
-    this.carService.addCar(this.car).subscribe(() => {
-      this.car = new CarImpl();
-    });
+    const formData = this.newCarForm.value;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http.post('http://localhost:8080/car', formData, { headers: headers })
+      .subscribe((response) => {
+        console.log(response);
+        this.car = new CarImpl();
+      });
   }
 }
